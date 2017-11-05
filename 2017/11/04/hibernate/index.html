@@ -106,12 +106,13 @@
 <meta property="og:site_name" content="XuLan Lee">
 <meta property="og:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.itxl.top/pic/5.png">
 <meta property="og:image" content="http://www.itxl.top/pic/4.png">
-<meta property="og:updated_time" content="2017-11-05T05:44:58.600Z">
+<meta property="og:updated_time" content="2017-11-05T10:55:39.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解hibernate的加载方式">
 <meta name="twitter:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
-<meta name="twitter:image" content="http://www.itxl.top/pic/4.png">
+<meta name="twitter:image" content="http://www.itxl.top/pic/5.png">
 
 
 
@@ -384,7 +385,8 @@
       
 
       
-        <h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&ensp;&ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。<br><a id="more"></a></p>
+        <p><img src="/pic/5.png" alt=""></p>
+<h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&ensp;&ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。<br><a id="more"></a></p>
 <h2 id="Hibernate的两种加载方式"><a href="#Hibernate的两种加载方式" class="headerlink" title="Hibernate的两种加载方式"></a>Hibernate的两种加载方式</h2><p>&ensp;&ensp;在hibernate中我们知道如果要从数据库中得到一个对象，通常有两种方式，一种是通过session.get()方法，另一种就是通过session.load()方法，然后其实这两种方法在获得一个实体对象时是有区别的，在查询性能上两者是不同的。</p>
 <h3 id="一、load加载方式"><a href="#一、load加载方式" class="headerlink" title="一、load加载方式"></a>一、load加载方式</h3><ul>
 <li><p>当使用load方法来得到一个对象时，此时hibernate会使用延迟加载的机制来加载这个对象，即：当我们使用session.load()方法来加载一个对象时，此时并不会发出sql语句，当前得到的这个对象其实是一个代理对象，这个代理对象只保存了实体对象的id值，只有当我们要使用这个对象，得到其它属性时，这个时候才会发出sql语句，从数据库中去查询我们的对象。    </p>
