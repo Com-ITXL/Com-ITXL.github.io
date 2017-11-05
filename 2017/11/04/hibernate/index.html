@@ -85,7 +85,7 @@
 
 
 
-  <meta name="keywords" content="hexo,github," />
+  <meta name="keywords" content="hibernate," />
 
 
 
@@ -98,20 +98,20 @@
 
 
 
-<meta name="description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;Hexo 是一个简单地、轻量地、基于Node.js的一个静态博客框架。同时Hexo的官方网站，也是基于Github构建的网站。">
-<meta name="keywords" content="hexo,github">
+<meta name="description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
+<meta name="keywords" content="hibernate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用hexo+github搭建个人博客">
-<meta property="og:url" content="http://www.itxl.top/2017/10/30/2/index.html">
+<meta property="og:title" content="详解hibernate的加载方式">
+<meta property="og:url" content="http://www.itxl.top/2017/11/04/hibernate/index.html">
 <meta property="og:site_name" content="XuLan Lee">
-<meta property="og:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;Hexo 是一个简单地、轻量地、基于Node.js的一个静态博客框架。同时Hexo的官方网站，也是基于Github构建的网站。">
+<meta property="og:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.itxl.top/pic/3.png">
-<meta property="og:updated_time" content="2017-11-05T05:45:18.183Z">
+<meta property="og:image" content="http://www.itxl.top/pic/4.png">
+<meta property="og:updated_time" content="2017-11-05T05:44:58.600Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用hexo+github搭建个人博客">
-<meta name="twitter:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;Hexo 是一个简单地、轻量地、基于Node.js的一个静态博客框架。同时Hexo的官方网站，也是基于Github构建的网站。">
-<meta name="twitter:image" content="http://www.itxl.top/pic/3.png">
+<meta name="twitter:title" content="详解hibernate的加载方式">
+<meta name="twitter:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
+<meta name="twitter:image" content="http://www.itxl.top/pic/4.png">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://www.itxl.top/2017/10/30/2/"/>
+  <link rel="canonical" href="http://www.itxl.top/2017/11/04/hibernate/"/>
 
 
 
 
 
-  <title>使用hexo+github搭建个人博客 | XuLan Lee</title>
+  <title>详解hibernate的加载方式 | XuLan Lee</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/10/30/2/">
+    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/11/04/hibernate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李旭岚">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用hexo+github搭建个人博客</h1>
+          <h1 class="post-title" itemprop="name headline">详解hibernate的加载方式</h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-30T00:00:00+08:00">
-                2017-10-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T20:53:11+08:00">
+                2017-11-04
               </time>
             
 
@@ -384,16 +384,138 @@
       
 
       
-        <p><img src="/pic/3.png" alt=""></p>
-<h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&ensp;&ensp;Hexo 是一个简单地、轻量地、基于Node.js的一个静态博客框架。同时Hexo的官方网站，也是基于Github构建的网站。<br><a id="more"></a></p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo <span class="keyword">new</span> <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<h3 id="进入徐瑞的博客"><a href="#进入徐瑞的博客" class="headerlink" title="进入徐瑞的博客"></a>进入徐瑞的博客</h3><p>More info: <a href="https://xxxxr.github.io" target="_blank" rel="external">徐瑞大帅逼</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&ensp;&ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。<br><a id="more"></a></p>
+<h2 id="Hibernate的两种加载方式"><a href="#Hibernate的两种加载方式" class="headerlink" title="Hibernate的两种加载方式"></a>Hibernate的两种加载方式</h2><p>&ensp;&ensp;在hibernate中我们知道如果要从数据库中得到一个对象，通常有两种方式，一种是通过session.get()方法，另一种就是通过session.load()方法，然后其实这两种方法在获得一个实体对象时是有区别的，在查询性能上两者是不同的。</p>
+<h3 id="一、load加载方式"><a href="#一、load加载方式" class="headerlink" title="一、load加载方式"></a>一、load加载方式</h3><ul>
+<li><p>当使用load方法来得到一个对象时，此时hibernate会使用延迟加载的机制来加载这个对象，即：当我们使用session.load()方法来加载一个对象时，此时并不会发出sql语句，当前得到的这个对象其实是一个代理对象，这个代理对象只保存了实体对象的id值，只有当我们要使用这个对象，得到其它属性时，这个时候才会发出sql语句，从数据库中去查询我们的对象。    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">session = HibernateUtil.openSession();</div><div class="line">			<span class="comment">/*</span></div><div class="line"><span class="comment">             通过load的方式加载对象时，会使用延迟加载机制，此时并不会发出sql语句，只有当我们需要使用的时候才会从数据库中去查询</span></div><div class="line"><span class="comment">             */</span>            </div><div class="line">User user = (User)session.load(User.class, <span class="number">2</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>我们看到，如果我们仅仅是通过load来加载我们的User对象，此时从控制台我们会发现并不会从数据库中查询出该对象，即并不会发出sql语句，但如果我们要使用该对象时：</p>
+<pre><code>session = HibernateUtil.openSession();
+User user = (User)session.load(User.class, 2);
+System.out.println(user);
+</code></pre></li>
+<li>此时我们看到控制台会发出了sql查询语句，会将该对象从数据库中查询出来：<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+User [id=2, username=aaa, password=111, born=2017-11-04 00:14:24.0]
+</code></pre></li>
+<li><p>这个时候我们可能会想，那么既然调用load方法时，并不会发出sql语句去从数据库中查出该对象，那么这个User对象到底是个什么对象呢？<br>其实这个User对象是我们的一个代理对象，这个代理对象仅仅保存了id这个属性：</p>
+<pre><code>session = HibernateUtil.openSession();
+    /*
+      通过load的方式加载对象时，会使用延迟加载机制，此时得到的User对象其实是一个
+      代理对象，该代理对象里面仅仅只有id这个属性
+     */
+User user = (User)session.load(User.class, 2);
+System.out.println(user.getId());
+
+console:　　2
+</code></pre></li>
+<li><p>我们看到，如果我们只打印出这个user对象的id值时，此时控制台会打印出该id值，但是同样不会发出sql语句去从数据库中去查询。这就印证了我们的这个user对象仅仅是一个保存了id的代理对象，但如果我需要打印出user对象的其他属性值时，这个时候会不会发出sql语句呢？答案是肯定的：</p>
+<pre><code>session = HibernateUtil.openSession();
+    /*
+      通过load的方式加载对象时，会使用延迟加载机制，此时得到的User对象其实是一个
+     代理对象，该代理对象里面仅仅只有id这个属性
+     */
+    User user = (User)session.load(User.class, 2);
+    System.out.println(user.getId());
+    // 如果此时要得到user其他属性，则会从数据库中查询
+System.out.println(user.getUsername());                    
+</code></pre></li>
+</ul>
+<p>此时我们看控制台的输出：2</p>
+<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+aaa
+</code></pre><p>相信通过上述的几个例子，大家应该很好的了解了load的这种加载对象的方式了吧。</p>
+<h3 id="二、get加载方式"><a href="#二、get加载方式" class="headerlink" title="二、get加载方式"></a>二、get加载方式</h3><ul>
+<li><p>相对于load的延迟加载方式，get就直接的多，当我们使用session.get()方法来得到一个对象时，不管我们使不使用这个对象，此时都会发出sql语句去从数据库中查询出来：</p>
+<pre><code>session = HibernateUtil.openSession();
+    /*
+     通过get方法来加载对象时，不管使不使用该对象，都会发出sql语句，从数据库中查询
+     */
+User user = (User)session.get(User.class, 2);
+</code></pre></li>
+<li><p>此时我们通过get方式来得到user对象，但是我们并没有使用它，但是我们发现控制台会输出sql的查询语句：</p>
+<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+</code></pre><p>因此我们可以看到，使用load的加载方式比get的加载方式性能要好一些，因为load加载时，得到的只是一个代理对象，当真正需要使用这个对象时再去从数据库中查询。</p>
+<h3 id="三、使用get和load时的一些小问题"><a href="#三、使用get和load时的一些小问题" class="headerlink" title="三、使用get和load时的一些小问题"></a>三、使用get和load时的一些小问题</h3><p>当了解了load和get的加载机制以后，我们此时来看看这两种方式会出现的一些小问题：</p>
+</li>
+</ul>
+<ul>
+<li><p>①如果使用get方式来加载对象，当我们试图得到一个id不存在的对象时，此时会报NullPointException的异常</p>
+<pre><code>session = HibernateUtil.openSession();
+    /*
+      当通过get方式试图得到一个id不存在的user对象时，此时会报NullPointException异常
+     */
+User user = (User)session.get(User.class, 20);
+System.out.println(user.getUsername());
+</code></pre><p>此时我们看控制台的输出信息，会报空指针的异常：</p>
+<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+java.lang.NullPointerException　　.........
+</code></pre><p>这是因为通过get方式我们会去数据库中查询出该对象，但是这个id值不存在，所以此时user对象是null，所以就会报NullPointException的异常了。</p>
+</li>
+<li>②如果使用load方式来加载对象，当我们试图得到一个id不存在的对象时，此时会报ObjectNotFoundException异常：</li>
+</ul>
+<pre><code>session = HibernateUtil.openSession();
+    /*
+     当通过get方式试图得到一个id不存在的user对象时，此时会报ObjectNotFoundException异常
+     */
+User user = (User)session.load(User.class, 20);
+System.out.println(user.getId());
+System.out.println(user.getUsername());
+</code></pre><p>我们看看控制台的输出：20</p>
+<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+org.hibernate.ObjectNotFoundException: No row with the given identifier exists: [com.xiaoluo.bean.User#20]......
+</code></pre><ul>
+<li>为什么使用load的方式和get的方式来得到一个不存在的对象报的异常不同呢？</li>
+<li><p>其原因还是因为load的延迟加载机制，使用load时，此时的user对象是一个代理对象，仅仅保存了当前的这个id值，当我们试图得到该对象的username属性时，这个属性其实是不存在的，所以就会报出ObjectNotFoundException这个异常了。</p>
+<pre><code>③org.hibernate.LazyInitializationException异常
+</code></pre><p>接下来我们再来看一个例子：</p>
+<pre><code>public class UserDAO
+{
+public User loadUser(int id)
+{
+Session session = null;
+Transaction tx = null;
+User user =  null;
+try
+{
+    session = HibernateUtil.openSession();
+    tx = session.beginTransaction();
+    user = (User)session.load(User.class, 1);
+    tx.commit();
+}
+catch (Exception e)
+{
+    e.printStackTrace();
+    tx.rollback();
+}
+finally
+{
+    HibernateUtil.close(session);
+}
+return user;
+}
+</code></pre></li>
+</ul>
+<p>测试代码</p>
+<pre><code>@Test
+public void testLazy06()
+{
+UserDAO userDAO = new UserDAO();
+User user = userDAO.loadUser(2);
+System.out.println(user);
+}
+</code></pre><ul>
+<li><p>模拟了一个UserDAO这样的对象，然后我们在测试用例里面来通过load加载一个对象，此时我们发现控制台会报LazyInitializationException异常</p>
+<pre><code>org.hibernate.LazyInitializationException: could not initialize proxy - no Session　　.............
+</code></pre></li>
+<li>这个异常是什么原因呢？</li>
+<li>还是因为load的延迟加载机制，当我们通过load()方法来加载一个对象时，此时并没有发出sql语句去从数据库中查询出该对象，当前这个对象仅仅是一个只有id的代理对象，我们还并没有使用该对象，但是此时我们的session已经关闭了，所以当我们在测试用例中使用该对象时就会报LazyInitializationException这个异常了。</li>
+<li>所以以后我们只要看到控制台报LazyInitializationException这种异常，就知道是使用了load的方式延迟加载一个对象了，解决这个的方法有两种，一种是将load改成get的方式来得到该对象，另一种是在表示层来开启我们的session和关闭session。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>到此，hibernate的两种加载方式get和load已经分析完毕！！！</li>
+</ul>
+<p><img src="/pic/4.png" alt=""></p>
 
       
     </div>
@@ -451,7 +573,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.itxl.top/2017/10/30/2/" title="使用hexo+github搭建个人博客">http://www.itxl.top/2017/10/30/2/</a>
+    <a href="http://www.itxl.top/2017/11/04/hibernate/" title="详解hibernate的加载方式">http://www.itxl.top/2017/11/04/hibernate/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -466,9 +588,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
-          
-            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+            <a href="/tags/hibernate/" rel="tag"><i class="fa fa-tag"></i> hibernate</a>
           
         </div>
       
@@ -481,8 +601,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/28/1/" rel="next" title="历尽千帆，归来仍是少年">
-                <i class="fa fa-chevron-left"></i> 历尽千帆，归来仍是少年
+              <a href="/2017/10/30/2/" rel="next" title="使用hexo+github搭建个人博客">
+                <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客
               </a>
             
           </div>
@@ -490,10 +610,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/04/hibernate/" rel="prev" title="详解hibernate的加载方式">
-                详解hibernate的加载方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -703,7 +819,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#author-李旭岚"><span class="nav-number">1.</span> <span class="nav-text">author  :  李旭岚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number"></span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number"></span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入徐瑞的博客"><span class="nav-number"></span> <span class="nav-text">进入徐瑞的博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number"></span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number"></span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number"></span> <span class="nav-text">Deploy to remote sites</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#author-李旭岚"><span class="nav-number">1.</span> <span class="nav-text">author  :  李旭岚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number"></span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hibernate的两种加载方式"><span class="nav-number"></span> <span class="nav-text">Hibernate的两种加载方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、load加载方式"><span class="nav-number"></span> <span class="nav-text">一、load加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、get加载方式"><span class="nav-number"></span> <span class="nav-text">二、get加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、使用get和load时的一些小问题"><span class="nav-number"></span> <span class="nav-text">三、使用get和load时的一些小问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
