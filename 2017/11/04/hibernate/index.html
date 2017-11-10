@@ -108,7 +108,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.itxl.top/pic/5.png">
 <meta property="og:image" content="http://www.itxl.top/pic/4.png">
-<meta property="og:updated_time" content="2017-11-05T10:55:39.438Z">
+<meta property="og:updated_time" content="2017-11-08T12:57:09.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解hibernate的加载方式">
 <meta name="twitter:description" content="author  :  李旭岚前言&amp;ensp;&amp;ensp;hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
@@ -393,11 +393,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">session = HibernateUtil.openSession();</div><div class="line">			<span class="comment">/*</span></div><div class="line"><span class="comment">             通过load的方式加载对象时，会使用延迟加载机制，此时并不会发出sql语句，只有当我们需要使用的时候才会从数据库中去查询</span></div><div class="line"><span class="comment">             */</span>            </div><div class="line">User user = (User)session.load(User.class, <span class="number">2</span>);</div></pre></td></tr></table></figure>
 </li>
 <li><p>我们看到，如果我们仅仅是通过load来加载我们的User对象，此时从控制台我们会发现并不会从数据库中查询出该对象，即并不会发出sql语句，但如果我们要使用该对象时：</p>
-<pre><code>session = HibernateUtil.openSession();
-User user = (User)session.load(User.class, 2);
-System.out.println(user);
-</code></pre></li>
-<li>此时我们看到控制台会发出了sql查询语句，会将该对象从数据库中查询出来：<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">session = HibernateUtil.openSession();</div><div class="line">User user = (User)session.load(User.class, <span class="number">2</span>);</div><div class="line">System.out.println(user);</div></pre></td></tr></table></figure>
+</li>
+<li><p>此时我们看到控制台会发出了sql查询语句，会将该对象从数据库中查询出来：</p>
+<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
 User [id=2, username=aaa, password=111, born=2017-11-04 00:14:24.0]
 </code></pre></li>
 <li><p>这个时候我们可能会想，那么既然调用load方法时，并不会发出sql语句去从数据库中查出该对象，那么这个User对象到底是个什么对象呢？<br>其实这个User对象是我们的一个代理对象，这个代理对象仅仅保存了id这个属性：</p>
@@ -729,7 +728,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -751,7 +750,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
