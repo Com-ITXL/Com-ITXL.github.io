@@ -85,7 +85,7 @@
 
 
 
-  <meta name="keywords" content="hibernate," />
+  <meta name="keywords" content="CoreJava," />
 
 
 
@@ -98,21 +98,22 @@
 
 
 
-<meta name="description" content="author  :  李旭岚前言　　hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
-<meta name="keywords" content="hibernate">
+<meta name="description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
+<meta name="keywords" content="CoreJava">
 <meta property="og:type" content="article">
-<meta property="og:title" content="详解hibernate的加载方式">
-<meta property="og:url" content="http://www.itxl.top/2017/11/04/hibernate/index.html">
+<meta property="og:title" content="面试题    —CoreJava篇">
+<meta property="og:url" content="http://www.itxl.top/2017/11/04/java面试/index.html">
 <meta property="og:site_name" content="XuLan Lee">
-<meta property="og:description" content="author  :  李旭岚前言　　hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
+<meta property="og:description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.itxl.top/pic/5.png">
+<meta property="og:image" content="http://www.itxl.top/pic/图片6.png">
+<meta property="og:image" content="http://www.itxl.top/pic/集合体系图.png">
 <meta property="og:image" content="http://www.itxl.top/pic/4.png">
-<meta property="og:updated_time" content="2017-11-10T07:23:58.121Z">
+<meta property="og:updated_time" content="2017-11-16T12:22:55.085Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="详解hibernate的加载方式">
-<meta name="twitter:description" content="author  :  李旭岚前言　　hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。">
-<meta name="twitter:image" content="http://www.itxl.top/pic/5.png">
+<meta name="twitter:title" content="面试题    —CoreJava篇">
+<meta name="twitter:description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
+<meta name="twitter:image" content="http://www.itxl.top/pic/图片6.png">
 
 
 
@@ -142,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="http://www.itxl.top/2017/11/04/hibernate/"/>
+  <link rel="canonical" href="http://www.itxl.top/2017/11/04/java面试/"/>
 
 
 
 
 
-  <title>详解hibernate的加载方式 | XuLan Lee</title>
+  <title>面试题    —CoreJava篇 | XuLan Lee</title>
   
 
 
@@ -296,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/11/04/hibernate/">
+    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/11/04/java面试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李旭岚">
@@ -313,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">详解hibernate的加载方式</h1>
+          <h1 class="post-title" itemprop="name headline">面试题    —CoreJava篇</h1>
         
 
         <div class="post-meta">
@@ -385,137 +386,61 @@
       
 
       
-        <p><img src="/pic/5.png" alt=""></p>
-<h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>　　hibernate作为一种可以用面向对象的方式操作数据库的框架,大大简化了我们的开发操作。我在学习中对这两种方式从数据库中获取对象产生了疑问，于是通过代码来分析这两者的区别。<br><a id="more"></a></p>
-<h2 id="Hibernate的两种加载方式"><a href="#Hibernate的两种加载方式" class="headerlink" title="Hibernate的两种加载方式"></a>Hibernate的两种加载方式</h2><p>　　在hibernate中我们知道如果要从数据库中得到一个对象，通常有两种方式，一种是通过session.get()方法，另一种就是通过session.load()方法，然后其实这两种方法在获得一个实体对象时是有区别的，在查询性能上两者是不同的。</p>
-<h3 id="一、load加载方式"><a href="#一、load加载方式" class="headerlink" title="一、load加载方式"></a>一、load加载方式</h3><ul>
-<li><p>当使用load方法来得到一个对象时，此时hibernate会使用延迟加载的机制来加载这个对象，即：当我们使用session.load()方法来加载一个对象时，此时并不会发出sql语句，当前得到的这个对象其实是一个代理对象，这个代理对象只保存了实体对象的id值，只有当我们要使用这个对象，得到其它属性时，这个时候才会发出sql语句，从数据库中去查询我们的对象。    </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">session = HibernateUtil.openSession();</div><div class="line">			<span class="comment">/*</span></div><div class="line"><span class="comment">             通过load的方式加载对象时，会使用延迟加载机制，此时并不会发出sql语句，只有当我们需要使用的时候才会从数据库中去查询</span></div><div class="line"><span class="comment">             */</span>            </div><div class="line">User user = (User)session.load(User.class, <span class="number">2</span>);</div></pre></td></tr></table></figure>
-</li>
-<li><p>我们看到，如果我们仅仅是通过load来加载我们的User对象，此时从控制台我们会发现并不会从数据库中查询出该对象，即并不会发出sql语句，但如果我们要使用该对象时：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">session = HibernateUtil.openSession();</div><div class="line">User user = (User)session.load(User.class, <span class="number">2</span>);</div><div class="line">System.out.println(user);</div></pre></td></tr></table></figure>
-</li>
-<li><p>此时我们看到控制台会发出了sql查询语句，会将该对象从数据库中查询出来：</p>
-<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
-User [id=2, username=aaa, password=111, born=2017-11-04 00:14:24.0]
-</code></pre></li>
-<li><p>这个时候我们可能会想，那么既然调用load方法时，并不会发出sql语句去从数据库中查出该对象，那么这个User对象到底是个什么对象呢？<br>其实这个User对象是我们的一个代理对象，这个代理对象仅仅保存了id这个属性：</p>
-<pre><code>session = HibernateUtil.openSession();
-    /*
-      通过load的方式加载对象时，会使用延迟加载机制，此时得到的User对象其实是一个
-      代理对象，该代理对象里面仅仅只有id这个属性
-     */
-User user = (User)session.load(User.class, 2);
-System.out.println(user.getId());
-
-console:　　2
-</code></pre></li>
-<li><p>我们看到，如果我们只打印出这个user对象的id值时，此时控制台会打印出该id值，但是同样不会发出sql语句去从数据库中去查询。这就印证了我们的这个user对象仅仅是一个保存了id的代理对象，但如果我需要打印出user对象的其他属性值时，这个时候会不会发出sql语句呢？答案是肯定的：</p>
-<pre><code>session = HibernateUtil.openSession();
-    /*
-      通过load的方式加载对象时，会使用延迟加载机制，此时得到的User对象其实是一个
-     代理对象，该代理对象里面仅仅只有id这个属性
-     */
-    User user = (User)session.load(User.class, 2);
-    System.out.println(user.getId());
-    // 如果此时要得到user其他属性，则会从数据库中查询
-System.out.println(user.getUsername());                    
-</code></pre></li>
+        <h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><h3 id="一、java-和-javasciprt-的区别"><a href="#一、java-和-javasciprt-的区别" class="headerlink" title="一、java 和 javasciprt 的区别"></a>一、java 和 javasciprt 的区别</h3><ul>
+<li>01-基于对象和面向对象</li>
 </ul>
-<p>此时我们看控制台的输出：2</p>
-<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
-aaa
-</code></pre><p>相信通过上述的几个例子，大家应该很好的了解了load的这种加载对象的方式了吧。</p>
-<h3 id="二、get加载方式"><a href="#二、get加载方式" class="headerlink" title="二、get加载方式"></a>二、get加载方式</h3><ul>
-<li><p>相对于load的延迟加载方式，get就直接的多，当我们使用session.get()方法来得到一个对象时，不管我们使不使用这个对象，此时都会发出sql语句去从数据库中查询出来：</p>
-<pre><code>session = HibernateUtil.openSession();
-    /*
-     通过get方法来加载对象时，不管使不使用该对象，都会发出sql语句，从数据库中查询
-     */
-User user = (User)session.get(User.class, 2);
-</code></pre></li>
-<li><p>此时我们通过get方式来得到user对象，但是我们并没有使用它，但是我们发现控制台会输出sql的查询语句：</p>
-<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
-</code></pre><p>因此我们可以看到，使用load的加载方式比get的加载方式性能要好一些，因为load加载时，得到的只是一个代理对象，当真正需要使用这个对象时再去从数据库中查询。</p>
-<h3 id="三、使用get和load时的一些小问题"><a href="#三、使用get和load时的一些小问题" class="headerlink" title="三、使用get和load时的一些小问题"></a>三、使用get和load时的一些小问题</h3><p>当了解了load和get的加载机制以后，我们此时来看看这两种方式会出现的一些小问题：</p>
-</li>
-</ul>
+<p>　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象；</p>
+<p>　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。</p>
 <ul>
-<li><p>①如果使用get方式来加载对象，当我们试图得到一个id不存在的对象时，此时会报NullPointException的异常</p>
-<pre><code>session = HibernateUtil.openSession();
-    /*
-      当通过get方式试图得到一个id不存在的user对象时，此时会报NullPointException异常
-     */
-User user = (User)session.get(User.class, 20);
-System.out.println(user.getUsername());
-</code></pre><p>此时我们看控制台的输出信息，会报空指针的异常：</p>
-<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
-java.lang.NullPointerException　　.........
-</code></pre><p>这是因为通过get方式我们会去数据库中查询出该对象，但是这个id值不存在，所以此时user对象是null，所以就会报NullPointException的异常了。</p>
+<li>02-解释和编译</li>
+</ul>
+<p>　　Java 的源代码在执行之前，必须经过编译；</p>
+<p>　　JavaScript 是一种解释性编程语言，其源代码不需经过编译，由浏览器解释执行；</p>
+<ul>
+<li>03-强类型变量和类型弱变量</li>
+</ul>
+<p>　　Java 采用强类型变量检查，即所有变量在编译之前必须作声明；</p>
+<p>　　JavaScript 中变量声明，采用其弱类型。即变量在使用前不需作声明，而是解释器在运行时检查其数据类型；</p>
+<ul>
+<li>04-代码格式不一样</li>
+</ul>
+<p>　　JavaScript可以直接嵌入HTML文档中,也可以动态装载,独立文件格式为*.js</p>
+<p>　　Java是一种与HTML无关的格式,独立的文件格式为*.class</p>
+<h3 id="二、多线程的同步与实现方式"><a href="#二、多线程的同步与实现方式" class="headerlink" title="二、多线程的同步与实现方式"></a>二、多线程的同步与实现方式</h3><p><img src="/pic/图片6.png" alt=""></p>
+<h3 id="三、说出你所知道的线程同步的方法"><a href="#三、说出你所知道的线程同步的方法" class="headerlink" title="三、说出你所知道的线程同步的方法"></a>三、说出你所知道的线程同步的方法</h3><ul>
+<li><p>wait():使一个线程处于等待状态，并且释放所持有的对象的 lock；</p>
 </li>
-<li>②如果使用load方式来加载对象，当我们试图得到一个id不存在的对象时，此时会报ObjectNotFoundException异常：</li>
+<li><p>sleep():使一个正在运行的线程处于睡眠状态，是一个静态方法，调用此方法要捕捉InterruptedException 异常；</p>
+</li>
+<li><p>notify():唤醒一个处于等待状态的线程，注意的是在调用此方法的时候，并不能确切的唤醒某一个等待状态的线程，而是由 JVM 确定唤醒哪个线程，而且不是按优先级；</p>
+</li>
+<li><p>notityAll():唤醒所有处入等待状态的线程，注意并不是给所有唤醒线程一个对象的锁，而是让它们竞争。</p>
+</li>
 </ul>
-<pre><code>session = HibernateUtil.openSession();
-    /*
-     当通过get方式试图得到一个id不存在的user对象时，此时会报ObjectNotFoundException异常
-     */
-User user = (User)session.load(User.class, 20);
-System.out.println(user.getId());
-System.out.println(user.getUsername());
-</code></pre><p>我们看看控制台的输出：20</p>
-<pre><code>Hibernate: select user0_.id as id0_0_, user0_.username as username0_0_, user0_.password as password0_0_, user0_.born as born0_0_ from user user0_ where user0_.id=?
-org.hibernate.ObjectNotFoundException: No row with the given identifier exists: [com.xiaoluo.bean.User#20]......
-</code></pre><ul>
-<li>为什么使用load的方式和get的方式来得到一个不存在的对象报的异常不同呢？</li>
-<li><p>其原因还是因为load的延迟加载机制，使用load时，此时的user对象是一个代理对象，仅仅保存了当前的这个id值，当我们试图得到该对象的username属性时，这个属性其实是不存在的，所以就会报出ObjectNotFoundException这个异常了。</p>
-<pre><code>③org.hibernate.LazyInitializationException异常
-</code></pre><p>接下来我们再来看一个例子：</p>
-<pre><code>public class UserDAO
-{
-public User loadUser(int id)
-{
-Session session = null;
-Transaction tx = null;
-User user =  null;
-try
-{
-    session = HibernateUtil.openSession();
-    tx = session.beginTransaction();
-    user = (User)session.load(User.class, 1);
-    tx.commit();
-}
-catch (Exception e)
-{
-    e.printStackTrace();
-    tx.rollback();
-}
-finally
-{
-    HibernateUtil.close(session);
-}
-return user;
-}
-</code></pre></li>
-</ul>
-<p>测试代码</p>
-<pre><code>@Test
-public void testLazy06()
-{
-UserDAO userDAO = new UserDAO();
-User user = userDAO.loadUser(2);
-System.out.println(user);
-}
-</code></pre><ul>
-<li><p>模拟了一个UserDAO这样的对象，然后我们在测试用例里面来通过load加载一个对象，此时我们发现控制台会报LazyInitializationException异常</p>
-<pre><code>org.hibernate.LazyInitializationException: could not initialize proxy - no Session　　.............
-</code></pre></li>
-<li>这个异常是什么原因呢？</li>
-<li>还是因为load的延迟加载机制，当我们通过load()方法来加载一个对象时，此时并没有发出sql语句去从数据库中查询出该对象，当前这个对象仅仅是一个只有id的代理对象，我们还并没有使用该对象，但是此时我们的session已经关闭了，所以当我们在测试用例中使用该对象时就会报LazyInitializationException这个异常了。</li>
-<li>所以以后我们只要看到控制台报LazyInitializationException这种异常，就知道是使用了load的方式延迟加载一个对象了，解决这个的方法有两种，一种是将load改成get的方式来得到该对象，另一种是在表示层来开启我们的session和关闭session。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>到此，hibernate的两种加载方式get和load已经分析完毕！！！</li>
-</ul>
+<h3 id="四、同步和异步有何异同"><a href="#四、同步和异步有何异同" class="headerlink" title="四、同步和异步有何异同"></a>四、同步和异步有何异同</h3><p>　　如果数据将在线程间共享。例如正在写的数据以后可能被另一个线程读到，或者正在读<br>的数据可能已经被另一个线程写过了，那么这些数据就是共享数据，必须进行同步存取。当<br>应用程序在对象上调用了一个需要花费很长时间来执行的方法，并且不希望让程序等待方法<br>的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效率。</p>
+<h3 id="五、JAVA语言如何进行异常处理，关键字：throws-throw-try-catch-finally-分别代表什么意义？在-try-块中可以抛出异常吗？"><a href="#五、JAVA语言如何进行异常处理，关键字：throws-throw-try-catch-finally-分别代表什么意义？在-try-块中可以抛出异常吗？" class="headerlink" title="五、JAVA语言如何进行异常处理，关键字：throws,throw,try,catch,finally 分别代表什么意义？在 try 块中可以抛出异常吗？"></a>五、JAVA语言如何进行异常处理，关键字：throws,throw,try,catch,finally 分别代表什么意义？在 try 块中可以抛出异常吗？</h3><p>　　Java 通过面向对象的方法进行异常处理，把各种不同的异常进行分类，并提供了良好的<br>接口。在 Java 中，每个异常都是一个对象，它是 Throwable 类或其它子类的实例。当一个方<br>法出现异常后便抛出一个异常对象，该对象中包含有异常信息，调用这个对象的方法可以捕<br>获到这个异常并进行处理。Java 的异常处理是通过 5 个关键词来实现的：try、catch、throw、<br>throws 和 finally。一般情况下是用 try 来执行一段程序，如果出现异常，系统会抛出（throws）<br>一个异常，这时候你可以通过它的类型来捕捉（catch）它，或最后（finally）由缺省处理器<br>来处理；</p>
+<pre><code>try 用来指定一块预防所有“异常”的程序；
+catch 子句紧跟在 try 块后面，用来指定你想要捕捉的“异常”的类型；
+throw 语句用来明确地抛出一个“异常”；
+throws 用来标明一个成员函数可能抛出的各种“异常”；
+Finally 为确保一段代码不管发生什么“异常”都被执行一段代码；
+</code></pre><p>　　可以在一个成员函数调用的外面写一个 try 语句，在这个成员函数内部写另一个 try 语句<br>保护其他代码。每当遇到一个 try 语句，“异常”的框架就放到堆栈上面，直到所有的 try 语<br>句都完成。如果下一级的 try 语句没有对某种“异常”进行处理，堆栈就会展开，直到遇到<br>有处理这种“异常”的 try 语句。</p>
+<h3 id="六、继承时候类的执行顺序问题-一般都是选择题-问你将会打印出什么"><a href="#六、继承时候类的执行顺序问题-一般都是选择题-问你将会打印出什么" class="headerlink" title="六、继承时候类的执行顺序问题,一般都是选择题,问你将会打印出什么?"></a>六、继承时候类的执行顺序问题,一般都是选择题,问你将会打印出什么?</h3><p>父类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> test; </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FatherClass</span> </span>&#123; </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FatherClass</span><span class="params">()</span> </span>&#123; </div><div class="line">System.out.println(<span class="string">"FatherClass Create"</span>); </div><div class="line">&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>子类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">		<span class="keyword">package</span> test; </div><div class="line"><span class="keyword">import</span> test.FatherClass; </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChildClass</span> <span class="keyword">extends</span> <span class="title">FatherClass</span> </span>&#123; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="title">ChildClass</span><span class="params">()</span> </span>&#123; </div><div class="line"> System.out.println(<span class="string">"ChildClass Create"</span>); </div><div class="line"> &#125; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </div><div class="line"> FatherClass fc = <span class="keyword">new</span> FatherClass(); </div><div class="line"> ChildClass cc = <span class="keyword">new</span> ChildClass(); </div><div class="line"> &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出结果为：</p>
+<pre><code>FatherClass Create 
+FatherClass Create 
+ChildClass Create 
+</code></pre><h3 id="七、类-Example-A-继承-Exception，类-ExampleB-继承-Example-A"><a href="#七、类-Example-A-继承-Exception，类-ExampleB-继承-Example-A" class="headerlink" title="七、类 Example A 继承 Exception，类 ExampleB 继承 Example A"></a>七、类 Example A 继承 Exception，类 ExampleB 继承 Example A</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"> <span class="keyword">throw</span> <span class="keyword">new</span> ExampleB(“b”)；</div><div class="line">&#125;<span class="keyword">catch</span>（ExampleA e）&#123;</div><div class="line"> System.out.printfln（“ExampleA”）；</div><div class="line">&#125;<span class="keyword">catch</span>（Exception e）&#123;</div><div class="line"> System.out.printfln（“Exception”）；</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出的内容应该是：</p>
+<pre><code>A：ExampleA 
+B：Exception 
+C：b 
+D：无
+</code></pre><h3 id="八、介绍-JAVA-中的-Collection-FrameWork-及如何写自己的数据结构"><a href="#八、介绍-JAVA-中的-Collection-FrameWork-及如何写自己的数据结构" class="headerlink" title="八、介绍 JAVA 中的 Collection FrameWork(及如何写自己的数据结构)"></a>八、介绍 JAVA 中的 Collection FrameWork(及如何写自己的数据结构)</h3><p><img src="/pic/集合体系图.png" alt=""></p>
+<h3 id="九、Collection-和-Collections-的区别？"><a href="#九、Collection-和-Collections-的区别？" class="headerlink" title="九、Collection 和 Collections 的区别？"></a>九、Collection 和 Collections 的区别？</h3><p>　　Collection 是 java.util 下的接口，它是各种集合的父接口，继承于它的接口主要有 Set 和<br>List；Collections 是个 java.util 下的类，是针对集合的帮助类，提供一系列静态方法实现对各<br>种集合的搜索、排序、线程安全化等操作。</p>
+<h3 id="十、List、Map、Set-三个接口，存取元素时，各有什么特点？"><a href="#十、List、Map、Set-三个接口，存取元素时，各有什么特点？" class="headerlink" title="十、List、Map、Set 三个接口，存取元素时，各有什么特点？"></a>十、List、Map、Set 三个接口，存取元素时，各有什么特点？</h3><p>　　List 以特定次序来持有元素，可有重复元素。Set 无法拥有重复元素,内部排序。Map 保<br>存 key-value 值，value 可多值。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　　前面很多的知识点虽然看着都有印象,但是很多都忘记了。大家有时间还是要多去复习前面学过的东西。</p>
 <p><img src="/pic/4.png" alt=""></p>
 
       
@@ -574,7 +499,7 @@ System.out.println(user);
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.itxl.top/2017/11/04/hibernate/" title="详解hibernate的加载方式">http://www.itxl.top/2017/11/04/hibernate/</a>
+    <a href="http://www.itxl.top/2017/11/04/java面试/" title="面试题    —CoreJava篇">http://www.itxl.top/2017/11/04/java面试/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -589,7 +514,7 @@ System.out.println(user);
       
         <div class="post-tags">
           
-            <a href="/tags/hibernate/" rel="tag"><i class="fa fa-tag"></i> hibernate</a>
+            <a href="/tags/CoreJava/" rel="tag"><i class="fa fa-tag"></i> CoreJava</a>
           
         </div>
       
@@ -602,8 +527,8 @@ System.out.println(user);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/04/java面试/" rel="next" title="面试题    —CoreJava篇">
-                <i class="fa fa-chevron-left"></i> 面试题    —CoreJava篇
+              <a href="/2017/10/30/2/" rel="next" title="使用hexo+github搭建个人博客">
+                <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客
               </a>
             
           </div>
@@ -612,8 +537,8 @@ System.out.println(user);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/05/最后一遍-明明不想怀念/" rel="prev" title="最后一遍,明明不想怀念">
-                最后一遍,明明不想怀念 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/04/hibernate/" rel="prev" title="详解hibernate的加载方式">
+                详解hibernate的加载方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -824,7 +749,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#author-李旭岚"><span class="nav-number">1.</span> <span class="nav-text">author  :  李旭岚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number"></span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hibernate的两种加载方式"><span class="nav-number"></span> <span class="nav-text">Hibernate的两种加载方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、load加载方式"><span class="nav-number"></span> <span class="nav-text">一、load加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、get加载方式"><span class="nav-number"></span> <span class="nav-text">二、get加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、使用get和load时的一些小问题"><span class="nav-number"></span> <span class="nav-text">三、使用get和load时的一些小问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#author-李旭岚"><span class="nav-number">1.</span> <span class="nav-text">author  :  李旭岚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试篇"><span class="nav-number"></span> <span class="nav-text">面试篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、java-和-javasciprt-的区别"><span class="nav-number"></span> <span class="nav-text">一、java 和 javasciprt 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、多线程的同步与实现方式"><span class="nav-number"></span> <span class="nav-text">二、多线程的同步与实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、说出你所知道的线程同步的方法"><span class="nav-number"></span> <span class="nav-text">三、说出你所知道的线程同步的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、同步和异步有何异同"><span class="nav-number"></span> <span class="nav-text">四、同步和异步有何异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、JAVA语言如何进行异常处理，关键字：throws-throw-try-catch-finally-分别代表什么意义？在-try-块中可以抛出异常吗？"><span class="nav-number"></span> <span class="nav-text">五、JAVA语言如何进行异常处理，关键字：throws,throw,try,catch,finally 分别代表什么意义？在 try 块中可以抛出异常吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、继承时候类的执行顺序问题-一般都是选择题-问你将会打印出什么"><span class="nav-number"></span> <span class="nav-text">六、继承时候类的执行顺序问题,一般都是选择题,问你将会打印出什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、类-Example-A-继承-Exception，类-ExampleB-继承-Example-A"><span class="nav-number"></span> <span class="nav-text">七、类 Example A 继承 Exception，类 ExampleB 继承 Example A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、介绍-JAVA-中的-Collection-FrameWork-及如何写自己的数据结构"><span class="nav-number"></span> <span class="nav-text">八、介绍 JAVA 中的 Collection FrameWork(及如何写自己的数据结构)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九、Collection-和-Collections-的区别？"><span class="nav-number"></span> <span class="nav-text">九、Collection 和 Collections 的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十、List、Map、Set-三个接口，存取元素时，各有什么特点？"><span class="nav-number"></span> <span class="nav-text">十、List、Map、Set 三个接口，存取元素时，各有什么特点？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
