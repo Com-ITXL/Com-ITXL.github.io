@@ -98,21 +98,21 @@
 
 
 
-<meta name="description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
+<meta name="description" content="author  :  李旭岚">
 <meta name="keywords" content="CoreJava">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题    —CoreJava篇">
-<meta property="og:url" content="http://www.itxl.top/2017/11/04/java面试/index.html">
+<meta property="og:url" content="http://www.itxl.top/2017/11/16/java面试/index.html">
 <meta property="og:site_name" content="XuLan Lee">
-<meta property="og:description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
+<meta property="og:description" content="author  :  李旭岚">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.itxl.top/pic/图片6.png">
 <meta property="og:image" content="http://www.itxl.top/pic/集合体系图.png">
 <meta property="og:image" content="http://www.itxl.top/pic/4.png">
-<meta property="og:updated_time" content="2017-11-16T12:22:55.085Z">
+<meta property="og:updated_time" content="2017-11-16T12:35:17.732Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题    —CoreJava篇">
-<meta name="twitter:description" content="author  :  李旭岚面试篇一、java 和 javasciprt 的区别 01-基于对象和面向对象  　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象； 　　JavaScript 是种脚本语言，它可以用来制作与网络无关的，与用户交互作用的复杂软件。  02-解释和编译  　　Java 的源代码在执行之前，必须经过编译； 　　JavaScript 是一种解释性编程">
+<meta name="twitter:description" content="author  :  李旭岚">
 <meta name="twitter:image" content="http://www.itxl.top/pic/图片6.png">
 
 
@@ -143,7 +143,7 @@
 
 
 
-  <link rel="canonical" href="http://www.itxl.top/2017/11/04/java面试/"/>
+  <link rel="canonical" href="http://www.itxl.top/2017/11/16/java面试/"/>
 
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/11/04/java面试/">
+    <link itemprop="mainEntityOfPage" href="http://www.itxl.top/2017/11/16/java面试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李旭岚">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T20:53:11+08:00">
-                2017-11-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T20:53:11+08:00">
+                2017-11-16
               </time>
             
 
@@ -386,7 +386,8 @@
       
 
       
-        <h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><h3 id="一、java-和-javasciprt-的区别"><a href="#一、java-和-javasciprt-的区别" class="headerlink" title="一、java 和 javasciprt 的区别"></a>一、java 和 javasciprt 的区别</h3><ul>
+        <h4 id="author-李旭岚"><a href="#author-李旭岚" class="headerlink" title="author  :  李旭岚"></a><em>author</em>  :  李旭岚</h4><a id="more"></a>
+<h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><h3 id="一、java-和-javasciprt-的区别"><a href="#一、java-和-javasciprt-的区别" class="headerlink" title="一、java 和 javasciprt 的区别"></a>一、java 和 javasciprt 的区别</h3><ul>
 <li>01-基于对象和面向对象</li>
 </ul>
 <p>　　Java 是一种真正的面向对象的语言，即使是开发简单的程序，必须设计对象；</p>
@@ -426,7 +427,7 @@ throws 用来标明一个成员函数可能抛出的各种“异常”；
 Finally 为确保一段代码不管发生什么“异常”都被执行一段代码；
 </code></pre><p>　　可以在一个成员函数调用的外面写一个 try 语句，在这个成员函数内部写另一个 try 语句<br>保护其他代码。每当遇到一个 try 语句，“异常”的框架就放到堆栈上面，直到所有的 try 语<br>句都完成。如果下一级的 try 语句没有对某种“异常”进行处理，堆栈就会展开，直到遇到<br>有处理这种“异常”的 try 语句。</p>
 <h3 id="六、继承时候类的执行顺序问题-一般都是选择题-问你将会打印出什么"><a href="#六、继承时候类的执行顺序问题-一般都是选择题-问你将会打印出什么" class="headerlink" title="六、继承时候类的执行顺序问题,一般都是选择题,问你将会打印出什么?"></a>六、继承时候类的执行顺序问题,一般都是选择题,问你将会打印出什么?</h3><p>父类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> test; </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FatherClass</span> </span>&#123; </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FatherClass</span><span class="params">()</span> </span>&#123; </div><div class="line">System.out.println(<span class="string">"FatherClass Create"</span>); </div><div class="line">&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>子类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">		<span class="keyword">package</span> test; </div><div class="line"><span class="keyword">import</span> test.FatherClass; </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChildClass</span> <span class="keyword">extends</span> <span class="title">FatherClass</span> </span>&#123; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="title">ChildClass</span><span class="params">()</span> </span>&#123; </div><div class="line"> System.out.println(<span class="string">"ChildClass Create"</span>); </div><div class="line"> &#125; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </div><div class="line"> FatherClass fc = <span class="keyword">new</span> FatherClass(); </div><div class="line"> ChildClass cc = <span class="keyword">new</span> ChildClass(); </div><div class="line"> &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>子类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> test; </div><div class="line"><span class="keyword">import</span> test.FatherClass; </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChildClass</span> <span class="keyword">extends</span> <span class="title">FatherClass</span> </span>&#123; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="title">ChildClass</span><span class="params">()</span> </span>&#123; </div><div class="line"> System.out.println(<span class="string">"ChildClass Create"</span>); </div><div class="line"> &#125; </div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </div><div class="line"> FatherClass fc = <span class="keyword">new</span> FatherClass(); </div><div class="line"> ChildClass cc = <span class="keyword">new</span> ChildClass(); </div><div class="line"> &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>输出结果为：</p>
 <pre><code>FatherClass Create 
 FatherClass Create 
@@ -499,7 +500,7 @@ D：无
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.itxl.top/2017/11/04/java面试/" title="面试题    —CoreJava篇">http://www.itxl.top/2017/11/04/java面试/</a>
+    <a href="http://www.itxl.top/2017/11/16/java面试/" title="面试题    —CoreJava篇">http://www.itxl.top/2017/11/16/java面试/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -527,8 +528,8 @@ D：无
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/30/2/" rel="next" title="使用hexo+github搭建个人博客">
-                <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客
+              <a href="/2017/11/10/11.11/" rel="next" title="一念花开 一念落叶">
+                <i class="fa fa-chevron-left"></i> 一念花开 一念落叶
               </a>
             
           </div>
@@ -536,10 +537,6 @@ D：无
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/04/hibernate/" rel="prev" title="详解hibernate的加载方式">
-                详解hibernate的加载方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
